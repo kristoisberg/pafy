@@ -195,6 +195,9 @@ class ydl:
     
     def deprecation_warning(self, msg):
         pass
+    
+    def deprecated_feature(self, msg):
+        pass
 
     def to_screen(self, *args, **kwargs):
         pass
