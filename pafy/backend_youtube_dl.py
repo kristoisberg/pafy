@@ -190,7 +190,7 @@ class YtdlStream(BaseStream):
         return filepath
 
 
-class ydl:
+class ydl(youtube_dl.YoutubeDL):
     def __init__(self):
         self.params = {"logger": logger}
 
