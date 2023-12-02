@@ -193,10 +193,19 @@ class ydl:
     def urlopen(self, url):
         return g.opener.open(url)
     
-    def deprecation_warning(self, msg):
+    def deprecation_warning(self, *args, **kwargs):
         pass
     
-    def deprecated_feature(self, msg):
+    def deprecated_feature(self, *args, **kwargs):
+        pass
+    
+    def report_file_already_downloaded(self, *args, **kwargs):
+        pass
+    
+    def write_debug(self, *args, **kwargs):
+        pass
+    
+    def to_stderr(self, *args, **kwargs):
         pass
 
     def to_screen(self, *args, **kwargs):
