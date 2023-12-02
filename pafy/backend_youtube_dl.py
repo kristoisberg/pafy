@@ -192,6 +192,9 @@ class YtdlStream(BaseStream):
 class ydl:
     def urlopen(self, url):
         return g.opener.open(url)
+    
+    def deprecation_warning(self, msg):
+        pass
 
     def to_screen(self, *args, **kwargs):
         pass
