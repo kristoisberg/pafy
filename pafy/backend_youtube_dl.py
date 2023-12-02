@@ -15,6 +15,7 @@ from . import g
 from .backend_shared import BasePafy, BaseStream, remux, get_status_string, get_size_done
 
 dbg = logging.debug
+logger = logging.getLogger(__name__)
 
 
 early_py_version = sys.version_info[:2] < (2, 7)
@@ -190,6 +191,9 @@ class YtdlStream(BaseStream):
 
 
 class ydl:
+    def __init__(self):
+        self.params = {"logger": logger}
+
     def urlopen(self, url):
         return g.opener.open(url)
     
