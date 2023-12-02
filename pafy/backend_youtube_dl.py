@@ -93,6 +93,7 @@ class YtdlStream(BaseStream):
     def __init__(self, info, parent):
         super(YtdlStream, self).__init__(parent)
         self._itag = info['format_id']
+        self._ydl_opts = g.def_ydl_opts
 
         if (info.get('acodec') != 'none' and
                 info.get('vcodec') == 'none'):
@@ -134,8 +135,9 @@ class YtdlStream(BaseStream):
     def download(self, filepath="", quiet=False, progress="Bytes",
                  callback=None, meta=False, remux_audio=False):
 
-        downloader = youtube_dl.downloader.http.HttpFD(ydl(),
-            {'http_chunk_size': 10485760})
+        with youtube_dl.YoutubeDL(self._ydl_opts) as ydl:
+            downloader = youtube_dl.downloader.http.HttpFD(ydl,
+                {'http_chunk_size': 10485760})
 
         progress_available = ["KB", "MB", "GB"]
         if progress not in progress_available:
@@ -188,41 +190,3 @@ class YtdlStream(BaseStream):
             remux(filepath + '.temp', filepath, quiet=quiet, muxer=remux_audio)
 
         return filepath
-
-
-class ydl(youtube_dl.YoutubeDL):
-    def __init__(self):
-        self.params = {"logger": logger}
-
-    def urlopen(self, url):
-        return g.opener.open(url)
-    
-    def deprecation_warning(self, *args, **kwargs):
-        pass
-    
-    def deprecated_feature(self, *args, **kwargs):
-        pass
-    
-    def report_file_already_downloaded(self, *args, **kwargs):
-        pass
-    
-    def write_debug(self, *args, **kwargs):
-        pass
-    
-    def to_stderr(self, *args, **kwargs):
-        pass
-
-    def to_screen(self, *args, **kwargs):
-        pass
-
-    def to_console_title(self, *args, **kwargs):
-        pass
-
-    def trouble(self, *args, **kwargs):
-        pass
-
-    def report_warning(self, *args, **kwargs):
-        pass
-
-    def report_error(self, *args, **kwargs):
-        pass
